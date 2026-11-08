@@ -1,0 +1,169 @@
+{
+  "network": "testnet",
+  "rpc": "https://test.rpc.fastnear.com",
+  "contract": "escrow.tb3ed5051370.testnet",
+  "prior_jobs_already_final": [
+    {
+      "id": 1,
+      "status": "Paid",
+      "winner_owner": "ada.tb3ed5051370.testnet",
+      "escrow_amount": "200000000000000000000000"
+    },
+    {
+      "id": 2,
+      "status": "Refunded",
+      "winner_owner": null,
+      "escrow_amount": "200000000000000000000000"
+    },
+    {
+      "id": 3,
+      "status": "Open",
+      "winner_owner": null,
+      "escrow_amount": "200000000000000000000000"
+    }
+  ],
+  "transactions": [
+    {
+      "method": "create_job",
+      "signer": "poster.tb3ed5051370.testnet",
+      "hash": "53VUWjGVLBFCqtffaQvm36UyeNd3XMRkMYMjQnptFYHd",
+      "explorer": "https://explorer.testnet.near.org/transactions/53VUWjGVLBFCqtffaQvm36UyeNd3XMRkMYMjQnptFYHd"
+    },
+    {
+      "method": "register_agent",
+      "signer": "ada.tb3ed5051370.testnet",
+      "hash": "FQRjJC1AzqxwPucAX2QSeV461g8VfYVLLruzKAcHeTKf",
+      "explorer": "https://explorer.testnet.near.org/transactions/FQRjJC1AzqxwPucAX2QSeV461g8VfYVLLruzKAcHeTKf"
+    },
+    {
+      "method": "record_guard",
+      "signer": "ops.tb3ed5051370.testnet",
+      "hash": "6jWvKE4ULcgrXSQ2ukF8emmgg2knFHrZV7x1vWqsPpJv",
+      "explorer": "https://explorer.testnet.near.org/transactions/6jWvKE4ULcgrXSQ2ukF8emmgg2knFHrZV7x1vWqsPpJv"
+    },
+    {
+      "method": "submit_result",
+      "signer": "ada.tb3ed5051370.testnet",
+      "hash": "DbMNsUG1B4PeHNMTmPwukZCoExeASVNWdsLrcGWnJwxL",
+      "explorer": "https://explorer.testnet.near.org/transactions/DbMNsUG1B4PeHNMTmPwukZCoExeASVNWdsLrcGWnJwxL"
+    },
+    {
+      "method": "record_review",
+      "signer": "ops.tb3ed5051370.testnet",
+      "hash": "CsQ2Qu7k2tEmWQprmJUMvWNRUcoHRxcLt37korapcfkJ",
+      "explorer": "https://explorer.testnet.near.org/transactions/CsQ2Qu7k2tEmWQprmJUMvWNRUcoHRxcLt37korapcfkJ"
+    },
+    {
+      "method": "payout_winner",
+      "signer": "ops.tb3ed5051370.testnet",
+      "hash": "EHHxRebWGPLGLzAgHD2FRinAWKXqP5gg2h5nZqiPWgoQ",
+      "explorer": "https://explorer.testnet.near.org/transactions/EHHxRebWGPLGLzAgHD2FRinAWKXqP5gg2h5nZqiPWgoQ"
+    },
+    {
+      "method": "create_job",
+      "signer": "poster.tb3ed5051370.testnet",
+      "hash": "CD6jbCVwq8Jz9GoLM88S2F2RDDRSiAtye7ruMpZAPC8T",
+      "explorer": "https://explorer.testnet.near.org/transactions/CD6jbCVwq8Jz9GoLM88S2F2RDDRSiAtye7ruMpZAPC8T"
+    },
+    {
+      "method": "refund_expired",
+      "signer": "ops.tb3ed5051370.testnet",
+      "hash": "9xzgz5tsHe5cbL95hm28wiTtyawrUmHzwtHwqp5A3QjC",
+      "explorer": "https://explorer.testnet.near.org/transactions/9xzgz5tsHe5cbL95hm28wiTtyawrUmHzwtHwqp5A3QjC"
+    },
+    {
+      "method": "create_job",
+      "signer": "poster.tb3ed5051370.testnet",
+      "hash": "3LQ3tjsrrvZjhbkSzpMfKnkQjYX94Mi6tfDziw6f5mC6",
+      "explorer": "https://explorer.testnet.near.org/transactions/3LQ3tjsrrvZjhbkSzpMfKnkQjYX94Mi6tfDziw6f5mC6"
+    },
+    {
+      "method": "register_agent",
+      "signer": "ghost.tb3ed5051370.testnet",
+      "hash": "EHgTxRSG29sEHtWhQtFEjq99Tfwhmiz6MExi8EUyHRfK",
+      "explorer": "https://explorer.testnet.near.org/transactions/EHgTxRSG29sEHtWhQtFEjq99Tfwhmiz6MExi8EUyHRfK"
+    },
+    {
+      "method": "record_guard",
+      "signer": "ops.tb3ed5051370.testnet",
+      "hash": "4RdDxFrrqdtxTwpJQKPrtr5WAB933jf2hLRVbzyK6KpP",
+      "explorer": "https://explorer.testnet.near.org/transactions/4RdDxFrrqdtxTwpJQKPrtr5WAB933jf2hLRVbzyK6KpP"
+    },
+    {
+      "method": "submit_result",
+      "signer": "ghost.tb3ed5051370.testnet",
+      "hash": "5ECpHq8mvecr7g2wDzqeCHhjrqmNNFnZXXhBoLXLLg2",
+      "explorer": "https://explorer.testnet.near.org/transactions/5ECpHq8mvecr7g2wDzqeCHhjrqmNNFnZXXhBoLXLLg2"
+    },
+    {
+      "method": "record_review",
+      "signer": "ops.tb3ed5051370.testnet",
+      "hash": "4fsgeV5cna2ELde8y9B2c3utqJWfJHXsQTtd89CNh4bi",
+      "explorer": "https://explorer.testnet.near.org/transactions/4fsgeV5cna2ELde8y9B2c3utqJWfJHXsQTtd89CNh4bi"
+    },
+    {
+      "method": "payout_winner",
+      "signer": "ops.tb3ed5051370.testnet",
+      "hash": "3THignrdz93CuTbct4E68M4tNL2oJ85s7V5N29YKWUBv",
+      "explorer": "https://explorer.testnet.near.org/transactions/3THignrdz93CuTbct4E68M4tNL2oJ85s7V5N29YKWUBv"
+    }
+  ],
+  "payout": {
+    "job_id": 4,
+    "status": "Paid",
+    "winner_owner": "ada.tb3ed5051370.testnet",
+    "reward_yocto": "100000000000000000000000",
+    "winner_before_yocto": "718051182019713000000000",
+    "winner_after_yocto": "818051182019713000000000",
+    "winner_delta_yocto": "100000000000000000000000",
+    "delta_equals_reward": true,
+    "transaction": "https://explorer.testnet.near.org/transactions/EHHxRebWGPLGLzAgHD2FRinAWKXqP5gg2h5nZqiPWgoQ",
+    "chain_logs": [
+      "TASKBOND payout_scheduled job=4 to=ada.tb3ed5051370.testnet amount=100000000000000000000000",
+      "TASKBOND payout_confirmed job=4 amount=100000000000000000000000"
+    ],
+    "chain_status": {
+      "SuccessValue": ""
+    }
+  },
+  "refund": {
+    "job_id": 5,
+    "status": "Refunded",
+    "reward_yocto": "100000000000000000000000",
+    "poster_before_yocto": "448906994640579000000000",
+    "poster_after_yocto": "548906994640579000000000",
+    "poster_delta_yocto": "100000000000000000000000",
+    "delta_equals_reward": true,
+    "transaction": "https://explorer.testnet.near.org/transactions/9xzgz5tsHe5cbL95hm28wiTtyawrUmHzwtHwqp5A3QjC",
+    "chain_logs": [
+      "TASKBOND refund_scheduled job=5 to=poster.tb3ed5051370.testnet amount=100000000000000000000000",
+      "TASKBOND refund_confirmed job=5 amount=100000000000000000000000"
+    ]
+  },
+  "ghost_deleted": {
+    "hash": "DaGTUCK4PEbxMp69qgyTPiRrEYwGYiqUHPm31BobJwiJ",
+    "explorer": "https://explorer.testnet.near.org/transactions/DaGTUCK4PEbxMp69qgyTPiRrEYwGYiqUHPm31BobJwiJ",
+    "beneficiary": "poster.tb3ed5051370.testnet"
+  },
+  "failed_transfer": {
+    "job_id": 6,
+    "status": "Open",
+    "escrow_claimable": "100000000000000000000000",
+    "escrow_in_flight": "0",
+    "marked_paid": false,
+    "claimable_restored": true,
+    "contract_balance_before": "4944666277049588200000000",
+    "contract_balance_after": "4944666277049588200000000",
+    "contract_balance_unchanged": true,
+    "transaction": "https://explorer.testnet.near.org/transactions/3THignrdz93CuTbct4E68M4tNL2oJ85s7V5N29YKWUBv",
+    "chain_logs": [
+      "TASKBOND payout_scheduled job=6 to=ghost.tb3ed5051370.testnet amount=100000000000000000000000",
+      "TASKBOND transfer_restored kind=Payout job=6 amount=100000000000000000000000"
+    ]
+  },
+  "confirmed": {
+    "payout": true,
+    "refund": true,
+    "failed_transfer_not_paid": true
+  }
+}

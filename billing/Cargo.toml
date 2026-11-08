@@ -1,0 +1,9 @@
+[package]
+name = "taskbond-billing"
+version = "0.1.0"
+edition = "2021"
+description = "Integer NEAR AI reimbursement math for Taskbond"
+license = "MIT"
+publish = false
+
+[dependencies]

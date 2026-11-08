@@ -1,0 +1,4 @@
+[workspace]
+resolver = "2"
+members = ["billing", "contract", "sandbox-tests"]
+default-members = ["billing", "sandbox-tests"]

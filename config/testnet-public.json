@@ -1,0 +1,13 @@
+{
+  "network": "testnet",
+  "rpc": "https://test.rpc.fastnear.com",
+  "contract": "escrow.tb3ed5051370.testnet",
+  "accounts": {
+    "parent": "tb3ed5051370.testnet",
+    "poster": "poster.tb3ed5051370.testnet",
+    "operator": "ops.tb3ed5051370.testnet",
+    "ada": "ada.tb3ed5051370.testnet",
+    "bas": "bas.tb3ed5051370.testnet",
+    "mal": "mal.tb3ed5051370.testnet"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "settlement": "not-performed",
+  "recipientType": "INTENTS",
+  "amountIn": "5000000",
+  "amountInFormatted": "5.0",
+  "amountOut": "1349803918259684573748308",
+  "amountOutFormatted": "1.349803918259684573748308",
+  "amountOutUsd": "4.980776458378",
+  "minAmountOut": "1336305879077087728010824",
+  "timeEstimate": 27,
+  "depositAddressDiscarded": false,
+  "note": "Dry quote only. recipientType is INTENTS because a testnet account cannot receive a mainnet wNEAR withdrawal (that request 400s). No deposit address is kept. Nothing is settled and the testnet job is not funded.",
+  "origin": "USDC on Arbitrum",
+  "destination": "wNEAR on NEAR",
+  "testnet": "There is no NEAR Intents testnet. This preview does not settle."
+}
