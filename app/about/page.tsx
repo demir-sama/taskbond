@@ -83,9 +83,9 @@ export default function Page() {
 
       <div className="card mt-5 p-6 text-sm text-mute">
         <div className="font-semibold text-fg">On-chain addresses (NEAR testnet)</div>
-        <dl className="mono mt-3 grid gap-2 text-xs sm:grid-cols-2">
+        <dl className="mono mt-3 grid grid-cols-1 gap-2 text-xs sm:grid-cols-2">
           {Object.entries({ contract: config.contract, ...config.accounts, "previous contract": config.previousContract }).map(([k, v]) => (
-            <div key={k} className="flex justify-between gap-3 rounded-lg border border-line px-3 py-2">
+            <div key={k} className="flex min-w-0 justify-between gap-3 rounded-lg border border-line px-3 py-2">
               <span className="text-dim">{k}</span>
               <a className="truncate text-soft hover:text-mint" href={`https://testnet.nearblocks.io/address/${v}`} target="_blank" rel="noreferrer">{v}</a>
             </div>

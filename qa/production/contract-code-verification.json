@@ -1,0 +1,7 @@
+{
+  "contract": "escrow.tbnd246748.testnet",
+  "expectedCodeHash": "2NchsHRjSSYHhuizBhbiqtt4GaSvcrT6DX8FNCUsyG7S",
+  "onChainCodeHash": "2NchsHRjSSYHhuizBhbiqtt4GaSvcrT6DX8FNCUsyG7S",
+  "matches": true,
+  "verifiedAt": "2026-11-09T18:38:06.875Z"
+}

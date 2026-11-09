@@ -1,0 +1,76 @@
+{
+  "jobId": 7,
+  "errors": [],
+  "aiCalls": [
+    {
+      "ms": 0,
+      "mode": "fixture",
+      "role": "guard",
+      "type": "ai",
+      "agent": "Mal",
+      "model": "deterministic policy",
+      "responseId": null,
+      "inputTokens": 0,
+      "outputTokens": 0
+    },
+    {
+      "ms": 0,
+      "mode": "fixture",
+      "role": "guard",
+      "type": "ai",
+      "agent": "Bas",
+      "model": "deterministic policy",
+      "responseId": null,
+      "inputTokens": 0,
+      "outputTokens": 0
+    },
+    {
+      "ms": 0,
+      "mode": "fixture",
+      "role": "guard",
+      "type": "ai",
+      "agent": "Ada",
+      "model": "deterministic policy",
+      "responseId": null,
+      "inputTokens": 0,
+      "outputTokens": 0
+    },
+    {
+      "ms": 0,
+      "mode": "fixture",
+      "role": "worker",
+      "type": "ai",
+      "agent": "Bas",
+      "model": "fixture output",
+      "responseId": null,
+      "inputTokens": 0,
+      "outputTokens": 0
+    },
+    {
+      "ms": 0,
+      "mode": "fixture",
+      "role": "worker",
+      "type": "ai",
+      "agent": "Ada",
+      "model": "fixture output",
+      "responseId": null,
+      "inputTokens": 0,
+      "outputTokens": 0
+    },
+    {
+      "ms": 0,
+      "mode": "fixture",
+      "role": "reviewer",
+      "type": "ai",
+      "model": "deterministic rubric",
+      "responseId": null,
+      "inputTokens": 0,
+      "outputTokens": 0
+    }
+  ],
+  "done": {
+    "ok": true,
+    "type": "done",
+    "jobId": 7
+  }
+}

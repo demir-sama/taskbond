@@ -1,0 +1,47 @@
+{
+  "site": "https://taskbond-iota.vercel.app",
+  "verification": "Real browser (Chromium) at 1280, 390, 320; screenshots in this folder",
+  "walletModal": {
+    "opened": true,
+    "visibleWallets": [
+      "Meteor Wallet",
+      "MyNearWallet",
+      "HOT Wallet",
+      "Intear Wallet"
+    ],
+    "signedWithRealUserWallet": false,
+    "note": "User-controlled testnet wallet connection and transaction approval not performed. Scripted pipeline signs real testnet transactions separately."
+  },
+  "hostedDemo": {
+    "jobId": 7,
+    "mode": "fixture",
+    "result": "Paid; Mal rejected; Ada selected; 3/3 refunds; browser showed Run complete",
+    "concurrentRun": "429 from durable pipeline lease"
+  },
+  "liveAI": {
+    "localJob": 4,
+    "localResult": "Six live NEAR AI calls succeeded; Mal rejected, Ada95/Bas92, Ada paid0.1NEAR, 3/3refunds",
+    "hostedAttempt": 5,
+    "hostedResult": "All guard calls returned401 Invalid or expired API key; failed closed; no payout; cancelled and known-unbilled reservations settled0; deposits refunded",
+    "currentProductionMode": "fixture (explicit in UI); valid host-side NEAR AI key still needed"
+  },
+  "tests": {
+    "typescript": "PASS",
+    "eslint": "PASS",
+    "nextBuild": "PASS",
+    "unitTests": 21,
+    "rustBillingTests": 4
+  },
+  "intents": {
+    "tokenList": "real 1Click /v0/tokens",
+    "quotes": "real EXACT_OUTPUT dry quotes, e.g. USDC on Base, SOL",
+    "settled": false
+  },
+  "remaining": [
+    "Hosted live AI blocked by401 key rejection",
+    "Actual Meteor sign-in and user transaction unverified",
+    "Upstream Meteor SDK malformed-input DoS advisory remains; see README"
+  ],
+  "mainnetFundsMoved": false,
+  "submittedHackathon": false
+}
