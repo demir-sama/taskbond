@@ -21,7 +21,7 @@ export function StatusStrip() {
     <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
       {items.map((i) => (
         <a key={i.k} href={i.href} target={i.href ? "_blank" : undefined} rel="noreferrer" className="flex items-center gap-3 bg-panel px-4 py-3.5 transition-colors hover:bg-raised">
-          <span className={`size-2 shrink-0 rounded-full ${i.ok ? "bg-mint shadow-[0_0_10px_#4cf2b0]" : "bg-dim"}`} />
+          <span className={`size-2 shrink-0 rounded-full ${i.ok ? "bg-mint shadow-[0_0_10px_#4cf2b0]" : i.k === "NEAR AI" && s ? "bg-amber" : "bg-dim"}`} />
           <div className="min-w-0">
             <div className="eyebrow !text-[10px]">{i.k}</div>
             <div className="mono truncate text-xs text-soft">{i.v}</div>

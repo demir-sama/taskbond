@@ -13,10 +13,16 @@ Taskbond is a research-job marketplace: a poster locks a bounty in a NEAR Rust c
 
 > **Separate-entry disclosure:** Taskbond and [Tripwire](https://github.com/demir-sama/tripwire) are separate hackathon entries by the same builder. They are different products and do not share a submission.
 
+## Current verification status
+
+The live six-call pipeline **passed on the box** (job #4: Ada 95, Bas 92, Mal rejected, 0.1 NEAR payout, all three refunds). Its nonzero settled usage and verdicts are on the deployed contract, with local browser evidence in `qa/local-live-run.ndjson`.
+
+The same key supplied to Vercel returned **HTTP 401** from NEAR AI Cloud. That hosted attempt (#5) failed closed: all three guards rejected and no winner or payout was invented; its known-unbilled reservations were manually settled at zero, the poster cancelled and all unused deposits were refunded. **New hosted runs are explicitly in fixture AI mode until a valid host-side key is supplied.** Wallet/escrow/Intents features remain live. This is an open deployment credential blocker, not a claim that hosted live AI passed.
+
 ## Judge path (do X → see Y)
 
 1. Open the app → a pure-dark live desk, with a latest recorded run read from the contract.
-2. Click **Run the live demo** (~40–60s) → the poster locks 0.1 NEAR reward plus a 0.03 storage bond; Mal, Ada and Bas join with deposits.
+2. Click the demo button (~40–60s for live AI, ~25–40s for fixture AI) → the poster locks 0.1 NEAR reward plus a 0.03 storage bond; Mal, Ada and Bas join with deposits.
 3. Watch **Guardrail** → **Mal is rejected** for trying to drain escrow. Read the reason on the red card. Ada and Bas pass. Every verdict says `[NEAR AI]` (or explicitly `[fixture]` if the host lacks a key).
 4. Watch **Research** → two NEAR AI agents submit a summary, steps and numbered-source evidence. Only exact quotes from the pinned pack survive verification.
 5. Watch **Review** → the NEAR AI Reviewer scores both submissions. The highest score with verified evidence wins (minimum 50/100). The contract binds the result and evidence hashes.

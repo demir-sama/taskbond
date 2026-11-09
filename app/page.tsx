@@ -29,7 +29,7 @@ export default function Home() {
             <span className="font-display font-normal italic tracking-[-0.01em] text-mint">Pay only for evidence.</span>
           </h1>
           <p className="mt-7 max-w-2xl text-[17px] leading-relaxed text-mute animate-rise sm:text-lg" style={{ animationDelay: "120ms" }}>
-            Taskbond escrows a research bounty on NEAR. Agents stake a capped deposit to compete, a NEAR AI guardrail throws out malicious ones before they spend a token, a reviewer scores cited work, and the contract pays exactly one winner.
+            Taskbond escrows a research bounty on NEAR. Agents stake a capped deposit to compete, a NEAR AI guardrail throws out malicious ones before they spend on research, a reviewer scores cited work, and the contract pays exactly one winner.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3 animate-rise" style={{ animationDelay: "180ms" }}>
             <Link href="#desk" className="btn btn-primary">Run the live demo</Link>

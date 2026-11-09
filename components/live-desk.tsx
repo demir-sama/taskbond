@@ -145,11 +145,13 @@ export function LiveDesk() {
         </div>
         <div className="flex flex-col items-start gap-2 sm:items-end">
           <button className="btn btn-primary" onClick={run} disabled={running} data-testid="run-demo">
-            {running ? <><Spinner /> Running · {elapsed}s</> : "Run the live demo"}
+            {running ? <><Spinner /> Running · {elapsed}s</> : aiMode === "live" ? "Run the live demo" : "Run testnet demo · fixture AI"}
           </button>
           <span className="text-xs text-dim">~40–60s · server-signed demo accounts · {aiMode === "live" ? "live NEAR AI" : "fixture AI"}</span>
         </div>
       </div>
+
+      {aiMode === "fixture" && <p className="mt-5 rounded-xl border border-amber/25 bg-amber/[0.05] px-4 py-3 text-sm leading-relaxed text-amber">New runs on this host use clearly labelled fixture AI until a valid host-side NEAR AI key is configured. Recorded runs whose verdicts say NEAR AI and show nonzero settled token counts used the real model. Escrow, wallet actions, payouts and refunds are real testnet transactions in both modes.</p>}
 
       {message && (
         <div className={`mt-6 rounded-2xl border px-4 py-3 text-sm ${message.tone === "mint" ? "border-mint/25 bg-mint/[0.05] text-mint" : message.tone === "coral" ? "border-coral/25 bg-coral/[0.05] text-coral" : "border-amber/25 bg-amber/[0.05] text-amber"}`}>{message.text}</div>
