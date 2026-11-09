@@ -19,6 +19,21 @@ export function chainName(id: string) {
   return CHAIN_NAMES[id] ?? id.toUpperCase();
 }
 
+/** Normalize conventional tickers at the provider boundary, not with CSS.
+ * Branded mixed-case assets (wNEAR, stNEAR, USDe, etc.) keep their spelling.
+ */
+const STANDARD_SYMBOLS = new Set([
+  "NEAR", "SOL", "ETH", "BTC", "USDC", "USDT", "ZEC", "BNB", "AVAX",
+  "TRX", "TON", "SUI", "APT", "DOGE", "XRP", "LTC", "BCH", "XLM",
+  "ADA", "STRK", "MON", "POL", "DAI", "LINK", "UNI", "AAVE",
+]);
+
+export function normalizeAssetSymbol(symbol: string): string {
+  const trimmed = symbol.trim();
+  const upper = trimmed.toUpperCase();
+  return STANDARD_SYMBOLS.has(upper) ? upper : trimmed;
+}
+
 /** Schema example is `2019-08-24T14:15:22Z`: seconds, no milliseconds. */
 export function quoteDeadline(now = new Date()): string {
   return new Date(now.getTime() + 60 * 60 * 1000).toISOString().replace(/\.\d{3}Z$/, "Z");
@@ -151,5 +166,5 @@ export async function listTokens(fetchImpl: typeof fetch = fetch): Promise<Inten
   const res = await fetchImpl(`${ONECLICK}/tokens`, { signal: AbortSignal.timeout(15_000), headers: { Accept: "application/json" } });
   if (!res.ok) throw new Error(`1Click tokens ${res.status}`);
   const all = (await res.json()) as IntentsToken[];
-  return all.filter((t) => t.assetId !== WNEAR && typeof t.symbol === "string");
+  return all.filter((t) => t.assetId !== WNEAR && typeof t.symbol === "string").map((t) => ({ ...t, symbol: normalizeAssetSymbol(t.symbol) }));
 }

@@ -28,3 +28,20 @@ test("deposit address is stripped from the preview", async () => {
   assert.equal(JSON.stringify(r).includes("SECRET"), false);
   if (r.ok) assert.equal(r.depositAddressDiscarded, true);
 });
+
+
+test("standard asset tickers retain canonical uppercase without corrupting branded symbols", async () => {
+  const { normalizeAssetSymbol, listTokens } = await import("./intents.ts");
+  for (const symbol of ["SOL", "SOl", "sol", " Sol "]) assert.equal(normalizeAssetSymbol(symbol), "SOL");
+  assert.equal(normalizeAssetSymbol("usdc"), "USDC");
+  for (const symbol of ["wNEAR", "stNEAR", "USDe", "cbBTC", "wstETH", "NearKat"]) {
+    assert.equal(normalizeAssetSymbol(symbol), symbol);
+  }
+  const fake = (async () => Response.json([
+    { assetId: "nep141:sol.omft.near", symbol: "SOl", decimals: 9, blockchain: "sol", price: 1 },
+    { assetId: "nep141:meta-pool.near", symbol: "stNEAR", decimals: 24, blockchain: "near", price: 1 },
+  ])) as typeof fetch;
+  const tokens = await listTokens(fake);
+  assert.equal(tokens[0].symbol, "SOL");
+  assert.equal(tokens[1].symbol, "stNEAR");
+});
