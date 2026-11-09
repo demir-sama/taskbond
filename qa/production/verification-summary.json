@@ -10,7 +10,8 @@
       "Intear Wallet"
     ],
     "signedWithRealUserWallet": false,
-    "note": "User-controlled testnet wallet connection and transaction approval not performed. Scripted pipeline signs real testnet transactions separately."
+    "note": "User-controlled testnet wallet connection and transaction approval not performed. Scripted pipeline signs real testnet transactions separately.",
+    "meteorSelection": "Selecting Meteor prompts extension confirmation without JS errors; no user signature attempted."
   },
   "hostedDemo": {
     "jobId": 7,
@@ -29,7 +30,7 @@
     "typescript": "PASS",
     "eslint": "PASS",
     "nextBuild": "PASS",
-    "unitTests": 21,
+    "unitTests": 22,
     "rustBillingTests": 4
   },
   "intents": {

@@ -203,7 +203,8 @@ export function parseReview(raw: unknown, ids: number[]) {
   const out = new Map<number, { score: number; reason: string }>();
   for (const s of r.scores) {
     if (!ids.includes(s.agentId) || out.has(s.agentId)) continue;
-    out.set(s.agentId, { score: Math.max(0, Math.min(100, Math.round(s.score))), reason: String(s.reason || "Scored by reviewer.").slice(0, 220) });
+    if (!Number.isInteger(s.score) || s.score < 0 || s.score > 100 || typeof s.reason !== "string" || !s.reason.trim()) throw new Error("reviewer score or reason is malformed");
+    out.set(s.agentId, { score: s.score, reason: s.reason.trim().slice(0, 220) });
   }
   if (out.size !== ids.length) throw new Error("reviewer did not score every submission");
   return out;

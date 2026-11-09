@@ -49,3 +49,9 @@ test("snippets are exact substrings and refs resolve to exact quotes", async () 
   assert.equal(ev.valid.length, 1);
   assert.equal(ev.invalid, 1);
 });
+
+
+test("malformed reviewer scores fail closed", () => {
+  assert.throws(() => parseReview({ scores: [{ agentId: 1, score: "99", reason: "x" }] }, [1]), /malformed/);
+  assert.throws(() => parseReview({ scores: [{ agentId: 1, score: 200, reason: "x" }] }, [1]), /malformed/);
+});

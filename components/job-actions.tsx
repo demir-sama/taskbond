@@ -133,6 +133,9 @@ export function JobActions({ d, worstCase, onChange }: { d: JobDetail; worstCase
               body={pendingReview.length ? `${pendingReview.length} submission(s) waiting. The Reviewer Agent scores them; the contract pays the winner.` : job.winner_agent_id ? "Winner recorded." : "Waiting for submissions."}
               action={(pendingReview.length > 0 || job.winner_agent_id) && <button className="btn btn-ghost btn-sm" disabled={!!busy} onClick={() => void server("Review & pay", "/api/review", { jobId: job.id })}>{busy === "Review & pay" ? <Spinner /> : job.winner_agent_id ? "Pay winner" : "Review & pay"}</button>}
             />
+            {!job.winner_agent_id && BigInt(job.deadline_ns) < BigInt(Date.now()) * 1_000_000n && (
+              <Step title="Deadline reached" body="No accepted winner. Anyone can return the escrowed reward to the poster." action={<button className="btn btn-ghost btn-sm" disabled={!!busy} onClick={() => void wallet("Refund expired job", () => w.call({ method: "refund_expired", args: { job_id: job.id }, gas: "200000000000000" }))}>Refund poster</button>} />
+            )}
             {w.accountId === job.poster && agents.every((a) => a.review === "None") && (
               <Step title="Cancel job" body="Before any submission, the poster can cancel and get the reward back." action={<button className="btn btn-ghost btn-sm" disabled={!!busy} onClick={() => void wallet("Cancel job", () => w.call({ method: "cancel_job", args: { job_id: job.id }, gas: "200000000000000" }))}>Cancel & refund</button>} />
             )}
