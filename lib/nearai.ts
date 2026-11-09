@@ -77,7 +77,7 @@ export async function chatJson<T>(options: {
   }
   const text = await response.text();
   if (!response.ok) {
-    const hint = response.status === 401 ? " (key rejected)" : response.status === 402 ? " (credits exhausted)" : response.status === 429 ? " (rate limited)" : "";
+    const hint = response.status === 401 ? " (key rejected)" : response.status === 402 ? " (billing authorization required)" : response.status === 429 ? " (rate limited)" : "";
     throw new NearAiError(`NEAR AI HTTP ${response.status}${hint}: ${text.slice(0, 200)}`);
   }
   let body: {

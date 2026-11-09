@@ -83,3 +83,11 @@ export async function latestRun(jobId: number) {
   const rows = await q`SELECT id,mode,status,events,created_at,updated_at FROM tb_run WHERE job_id=${jobId} ORDER BY created_at DESC LIMIT 1`;
   return rows[0] ?? null;
 }
+
+/** Non-secret outcome of the last model request; lets the UI distinguish configured from actually usable. */
+export async function lastAiState(): Promise<{ status: string; error: string | null } | null> {
+  await initDb();
+  const q = sql();
+  const rows = await q`SELECT status,error FROM tb_ai_call ORDER BY updated_at DESC LIMIT 1`;
+  return rows[0] ? { status: String(rows[0].status), error: rows[0].error == null ? null : String(rows[0].error) } : null;
+}

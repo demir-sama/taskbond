@@ -17,9 +17,11 @@ Taskbond is a research-job marketplace: a poster locks a bounty in a NEAR Rust c
 
 The live six-call pipeline **passed on the box** (job #4: Ada 95, Bas 92, Mal rejected, 0.1 NEAR payout, all three refunds). Its nonzero settled usage and verdicts are on the deployed contract, with local browser evidence in `qa/local-live-run.ndjson`.
 
-Hosted credential diagnosis found that Vercel did **not** receive the working local key: its value was the literal `[REDACTED]` placeholder (10 bytes), while the local value was 35 bytes with a different SHA256. Production scope, exact variable name, base URL and Bearer header were correct. Re-setting through the sanctioned connector and a fresh deployment still produced that placeholder; it was not a trailing newline or old deployment. The temporary token-protected fingerprint endpoint was removed afterward. A valid key must be entered directly into the Taskbond Production environment through a supported secure setup flow.
+The explicitly provided user key is now correctly installed in Vercel Production: **35 bytes and SHA256 matches the secure source file**, verified without exposing the value. Production is set to **live**. The earlier `[REDACTED]` transfer problem is resolved.
 
-The hosted attempt (#5) returned **HTTP 401** and failed closed: all three guards rejected and no winner or payout was invented; its known-unbilled reservations were manually settled at zero, the poster cancelled and all unused deposits were refunded. **New hosted runs are explicitly in fixture AI mode until a valid host-side key is supplied.** Wallet/escrow/Intents features remain live. This is an open credential-transfer blocker, not evidence that the user's working key is expired or that hosted live AI passed.
+A real hosted live attempt (#8) reached NEAR AI but all three guard requests returned **HTTP 402**, `no_limit_configured`: **“No spending limit configured. Please contact support to set up credits.”** This is a provider-side billing/grant limit issue, not a key-length or deployment issue and not proof that an existing balance was exhausted. Guards failed closed; no worker, reviewer, winner or payout was invented. Known-unbilled reserves were settled at zero, the poster cancelled, and all three unused agent deposits refunded. The UI shows the last provider failure instead of claiming AI is ready. After the NEAR AI organization’s credits/spending limit is configured, use **Retry live demo**; no key or mode change is needed.
+
+Wallet actions, real testnet escrow, and live Intents dry quotes remain available. Historical hosted fixture jobs #6 and #7 completed payout and refunds, explicitly labelled fixture AI.
 
 ## Judge path (do X → see Y)
 

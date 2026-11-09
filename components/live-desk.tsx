@@ -22,9 +22,10 @@ type Tx = Extract<RunEvent, { type: "tx" }>;
 type Ai = Extract<RunEvent, { type: "ai" }>;
 
 export function LiveDesk() {
+  const [aiBlocker, setAiBlocker] = useState<string | null>(null);
   const [aiMode, setAiMode] = useState<"live" | "fixture">("live");
   useEffect(() => {
-    fetch("/api/status").then((r) => r.json()).then((s) => setAiMode(s.ai?.mode === "fixture" ? "fixture" : "live")).catch(() => {});
+    fetch("/api/status").then((r) => r.json()).then((s) => { setAiMode(s.ai?.mode === "fixture" ? "fixture" : "live"); setAiBlocker(s.ai?.blocker ?? null); }).catch(() => {});
   }, []);
   const [detail, setDetail] = useState<JobDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -145,11 +146,13 @@ export function LiveDesk() {
         </div>
         <div className="flex flex-col items-start gap-2 sm:items-end">
           <button className="btn btn-primary" onClick={run} disabled={running} data-testid="run-demo">
-            {running ? <><Spinner /> Running · {elapsed}s</> : aiMode === "live" ? "Run the live demo" : "Run testnet demo · fixture AI"}
+            {running ? <><Spinner /> Running · {elapsed}s</> : aiMode === "live" ? aiBlocker ? "Retry live demo" : "Run the live demo" : "Run testnet demo · fixture AI"}
           </button>
           <span className="text-xs text-dim">~40–60s · server-signed demo accounts · {aiMode === "live" ? "live NEAR AI" : "fixture AI"}</span>
         </div>
       </div>
+
+      {aiMode === "live" && aiBlocker && <p className="mt-5 rounded-xl border border-amber/25 bg-amber/[0.05] px-4 py-3 text-sm leading-relaxed text-amber">Live NEAR AI is configured, but the provider blocked the last call: {aiBlocker.slice(0, 300)}. No result or payout was invented. After resolving the provider-side issue, use Retry live demo.</p>}
 
       {aiMode === "fixture" && <p className="mt-5 rounded-xl border border-amber/25 bg-amber/[0.05] px-4 py-3 text-sm leading-relaxed text-amber">New runs on this host use clearly labelled fixture AI until a valid host-side NEAR AI key is configured. Recorded runs whose verdicts say NEAR AI and show nonzero settled token counts used the real model. Escrow, wallet actions, payouts and refunds are real testnet transactions in both modes.</p>}
 

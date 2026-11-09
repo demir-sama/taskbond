@@ -1,0 +1,19 @@
+{"id": "job", "type": "step", "detail": "Escrowing 0.10 NEAR reward + storage bond", "status": "running"}
+{"hash": "DtC4WFMdTQgKmmGPztgZxbK1MN3GLCz9w6CWau3hsAeF", "type": "tx", "label": "Poster escrows the reward", "method": "create_job", "signer": "poster.tbnd246748.testnet", "explorer": "https://testnet.nearblocks.io/txns/DtC4WFMdTQgKmmGPztgZxbK1MN3GLCz9w6CWau3hsAeF"}
+{"type": "job", "jobId": 8}
+{"id": "job", "type": "step", "detail": "Job #8 holds 0.10 NEAR in escrow", "status": "done"}
+{"id": "join", "type": "step", "detail": "Mal, Ada and Bas deposit and register", "status": "running"}
+{"hash": "6rwQAnYVTLugPcYUeoT9nSiB2Ag45orpuTAxdYDAEy7X", "type": "tx", "label": "Mal joins with a capped deposit", "method": "register_agent", "signer": "mal.tbnd246748.testnet", "explorer": "https://testnet.nearblocks.io/txns/6rwQAnYVTLugPcYUeoT9nSiB2Ag45orpuTAxdYDAEy7X"}
+{"hash": "Dw3JDQDZzrfhLNrW925PU8nF8myWZufTPXDPHvYKdUnh", "type": "tx", "label": "Ada joins with a capped deposit", "method": "register_agent", "signer": "ada.tbnd246748.testnet", "explorer": "https://testnet.nearblocks.io/txns/Dw3JDQDZzrfhLNrW925PU8nF8myWZufTPXDPHvYKdUnh"}
+{"hash": "2JpMkqGwyiWNK5XsjcESRrf8iqHbitmuDb4XYhtzCufL", "type": "tx", "label": "Bas joins with a capped deposit", "method": "register_agent", "signer": "bas.tbnd246748.testnet", "explorer": "https://testnet.nearblocks.io/txns/2JpMkqGwyiWNK5XsjcESRrf8iqHbitmuDb4XYhtzCufL"}
+{"id": "join", "type": "step", "detail": "3 agents joined \u00b7 inference cap 0.0061 NEAR each (hard limit in contract)", "status": "done"}
+{"id": "guard", "type": "step", "detail": "NEAR AI Guardrail Agent is reading each system prompt", "status": "running"}
+{"hash": "FQhTYaYwPD53kzbtJSDp9y5YERufm939oxCdbiHRGkZn", "type": "tx", "label": "Reserve guard budget", "method": "reserve + reserve + reserve", "signer": "ops.tbnd246748.testnet", "explorer": "https://testnet.nearblocks.io/txns/FQhTYaYwPD53kzbtJSDp9y5YERufm939oxCdbiHRGkZn"}
+{"ms": 0, "mode": "live", "role": "guard", "type": "ai", "agent": "Bas", "error": "NEAR AI HTTP 402 (credits exhausted): {\"error\":{\"message\":\"No spending limit configured. Please contact support to set up credits.\",\"type\":\"no_limit_configured\",\"param\":null,\"code\":null}}", "model": "Qwen/Qwen3.8-27B", "responseId": null, "inputTokens": 0, "outputTokens": 0}
+{"ms": 0, "mode": "live", "role": "guard", "type": "ai", "agent": "Ada", "error": "NEAR AI HTTP 402 (credits exhausted): {\"error\":{\"message\":\"No spending limit configured. Please contact support to set up credits.\",\"type\":\"no_limit_configured\",\"param\":null,\"code\":null}}", "model": "Qwen/Qwen3.8-27B", "responseId": null, "inputTokens": 0, "outputTokens": 0}
+{"ms": 0, "mode": "live", "role": "guard", "type": "ai", "agent": "Mal", "error": "NEAR AI HTTP 402 (credits exhausted): {\"error\":{\"message\":\"No spending limit configured. Please contact support to set up credits.\",\"type\":\"no_limit_configured\",\"param\":null,\"code\":null}}", "model": "Qwen/Qwen3.8-27B", "responseId": null, "inputTokens": 0, "outputTokens": 0}
+{"hash": "6E4FUqR6fS9dpnyHYj14uhqBndYF8PYcaFZKwj4bsBiQ", "type": "tx", "label": "Settle guard usage + record decisions", "method": "record_guard + record_guard + record_guard", "signer": "ops.tbnd246748.testnet", "explorer": "https://testnet.nearblocks.io/txns/6E4FUqR6fS9dpnyHYj14uhqBndYF8PYcaFZKwj4bsBiQ"}
+{"id": "guard", "type": "step", "detail": "0 approved \u00b7 3 rejected before spending", "status": "done"}
+{"id": "work", "type": "step", "detail": "Approved agents research the pinned NEAR docs on NEAR AI", "status": "running"}
+{"id": "work", "type": "step", "detail": "0 submissions \u00b7 ", "status": "error"}
+{"ok": false, "type": "done", "error": "No worker produced a submission. Escrow stays locked until the deadline refund.", "jobId": 8}

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import config from "@/config/testnet-public.json";
 
-type Status = { ai: { mode: string; model: string; catalogReady: boolean | null }; signer: boolean; config: { operator_unspent: string } | null };
+type Status = { ai: { mode: string; model: string; catalogReady: boolean | null; blocker?: string | null }; signer: boolean; config: { operator_unspent: string } | null };
 
 export function StatusStrip() {
   const [s, setS] = useState<Status | null>(null);
@@ -14,7 +14,7 @@ export function StatusStrip() {
   }, []);
   const items = [
     { k: "Escrow", v: config.contract, ok: !!s?.config, href: `https://testnet.nearblocks.io/address/${config.contract}` },
-    { k: "NEAR AI", v: s ? (s.ai.mode === "live" ? `${s.ai.model} · live` : "fixture mode") : "…", ok: s?.ai.mode === "live" },
+    { k: "NEAR AI", v: s ? (s.ai.mode === "live" ? s.ai.blocker ? "Last AI call blocked · see live desk" : `${s.ai.model} · live` : "fixture mode") : "…", ok: s?.ai.mode === "live" && !s?.ai.blocker },
     { k: "NEAR Intents", v: tokens ? `${tokens} assets quotable` : "…", ok: !!tokens },
   ];
   return (

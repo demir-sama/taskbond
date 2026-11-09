@@ -1,0 +1,43 @@
+{
+  "jobId": 8,
+  "keyLength": 35,
+  "keyFingerprintMatches": true,
+  "productionMode": "live",
+  "outcome": "FAIL_CLOSED",
+  "providerStatus": 402,
+  "providerCode": "no_limit_configured",
+  "providerMessage": "No spending limit configured. Please contact support to set up credits.",
+  "guardRequests": 3,
+  "workerCalls": 0,
+  "reviewerCalls": 0,
+  "winnerPayout": false,
+  "finalJobStatus": "Refunded",
+  "refunds": [
+    {
+      "name": "Mal",
+      "unspent": "0",
+      "gasReserve": "0",
+      "refundLocked": "0"
+    },
+    {
+      "name": "Bas",
+      "unspent": "0",
+      "gasReserve": "0",
+      "refundLocked": "0"
+    },
+    {
+      "name": "Ada",
+      "unspent": "0",
+      "gasReserve": "0",
+      "refundLocked": "0"
+    }
+  ],
+  "posterRefundTx": "F8woE1Ut5B337RTBP4ryqdUN9285qsQBNGzqh3FjM4gu",
+  "agentRefundTxs": [
+    "5UBnYfGddHYqByb1fHDMtiU4aSH33aF8fEgudC9b9tcc",
+    "7zbEurmCQQi7Gkzq69fhTUJoDNnBouSRTCX6mmswxnL",
+    "3oJmn9aLfHyEThHtMcV3bwMHzoNvSzv1doacoMHJDE3F"
+  ],
+  "nextRequired": "NEAR AI organization credit/grant spending limit setup; no billing or spending-control changes made by bot",
+  "diagnosticCleanup": "Endpoint removed; leftover sensitive token value cleared (empty), connector has no deletion tool"
+}
