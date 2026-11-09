@@ -152,9 +152,9 @@ export function LiveDesk() {
         </div>
       </div>
 
-      {aiMode === "live" && aiBlocker && <p className="mt-5 rounded-xl border border-amber/25 bg-amber/[0.05] px-4 py-3 text-sm leading-relaxed text-amber">Live NEAR AI is configured, but the provider blocked the last call: {aiBlocker.slice(0, 300)}. No result or payout was invented. After resolving the provider-side issue, use Retry live demo.</p>}
+      {aiMode === "live" && aiBlocker && <p className="mt-5 break-words rounded-xl border border-amber/25 bg-amber/[0.05] px-4 py-3 text-sm leading-relaxed text-amber">Live NEAR AI is configured, but the provider blocked the last call: {aiBlocker.slice(0, 300)}. No result or payout was invented. After resolving the provider-side issue, use Retry live demo.</p>}
 
-      {aiMode === "fixture" && <p className="mt-5 rounded-xl border border-amber/25 bg-amber/[0.05] px-4 py-3 text-sm leading-relaxed text-amber">New runs on this host use clearly labelled fixture AI until a valid host-side NEAR AI key is configured. Recorded runs whose verdicts say NEAR AI and show nonzero settled token counts used the real model. Escrow, wallet actions, payouts and refunds are real testnet transactions in both modes.</p>}
+      {aiMode === "fixture" && <p className="mt-5 break-words rounded-xl border border-amber/25 bg-amber/[0.05] px-4 py-3 text-sm leading-relaxed text-amber">New runs on this host use clearly labelled fixture AI until a valid host-side NEAR AI key is configured. Recorded runs whose verdicts say NEAR AI and show nonzero settled token counts used the real model. Escrow, wallet actions, payouts and refunds are real testnet transactions in both modes.</p>}
 
       {message && (
         <div className={`mt-6 rounded-2xl border px-4 py-3 text-sm ${message.tone === "mint" ? "border-mint/25 bg-mint/[0.05] text-mint" : message.tone === "coral" ? "border-coral/25 bg-coral/[0.05] text-coral" : "border-amber/25 bg-amber/[0.05] text-amber"}`}>{message.text}</div>

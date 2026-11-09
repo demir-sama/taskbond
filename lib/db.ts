@@ -89,5 +89,16 @@ export async function lastAiState(): Promise<{ status: string; error: string | n
   await initDb();
   const q = sql();
   const rows = await q`SELECT status,error FROM tb_ai_call ORDER BY updated_at DESC LIMIT 1`;
-  return rows[0] ? { status: String(rows[0].status), error: rows[0].error == null ? null : String(rows[0].error).replace(" (credits exhausted)", " (billing authorization required)") } : null;
+  if (!rows[0]) return null;
+  let error = rows[0].error == null ? null : String(rows[0].error).replace(" (credits exhausted)", " (billing authorization required)");
+  if (error) {
+    const split = error.indexOf(": {");
+    if (split >= 0) {
+      try {
+        const detail = JSON.parse(error.slice(split + 2)) as { error?: { message?: unknown } };
+        if (typeof detail.error?.message === "string") error = `${error.slice(0, split)}: ${detail.error.message}`;
+      } catch { /* A truncated response stays labelled as a failure. */ }
+    }
+  }
+  return { status: String(rows[0].status), error };
 }
