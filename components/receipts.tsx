@@ -3,6 +3,18 @@
 import type { RunEvent } from "@/lib/types";
 import { TxLink, Pill } from "./ui";
 
+function providerMessage(raw: string) {
+  const text = raw.replace(" (credits exhausted)", " (billing authorization required)");
+  const split = text.indexOf(": {");
+  if (split < 0) return text;
+  try {
+    const detail = JSON.parse(text.slice(split + 2)) as { error?: { message?: unknown } };
+    return typeof detail.error?.message === "string" ? `${text.slice(0, split)}: ${detail.error.message}` : text;
+  } catch {
+    return text;
+  }
+}
+
 export function Receipts({ events }: { events: RunEvent[] }) {
   const txs = events.filter((e) => e.type === "tx");
   const ais = events.filter((e) => e.type === "ai");
@@ -26,7 +38,7 @@ export function Receipts({ events }: { events: RunEvent[] }) {
             <li key={i} className="border-b border-line pb-3 last:border-b-0">
               <div className="flex items-center justify-between text-xs"><span className="capitalize text-soft">{a.role}{a.agent ? ` · ${a.agent}` : ""}</span><span className="mono text-mute">{a.inputTokens}→{a.outputTokens} tokens · {(a.ms / 1000).toFixed(1)}s</span></div>
               <div className="mono mt-1 break-all text-[10px] text-dim">{a.mode === "live" ? a.model : "fixture"} · {a.responseId ?? "no model call"}</div>
-              {a.error && <div className="mt-1 text-xs text-coral">Failed closed: {a.error}</div>}
+              {a.error && <div className="mt-1 text-xs text-coral [overflow-wrap:anywhere]">Failed closed: {providerMessage(a.error)}</div>}
             </li>
           ))}
         </ul>
