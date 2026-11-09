@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { connection } from "next/server";
 import { aiMode, MODEL_FACTS, NEAR_AI_MODEL } from "@/lib/nearai";
 import { canSign, view } from "@/lib/near-server";
@@ -19,7 +20,7 @@ export async function GET() {
       network: "testnet",
       contract: PUBLIC.contract,
       accounts: PUBLIC.accounts,
-      ai: { mode: aiMode(), model: NEAR_AI_MODEL, catalogReady: live?.metadata?.isReady ?? null, verifiable: live?.metadata?.verifiable ?? MODEL_FACTS.verifiable },
+      ai: { keyLength: (process.env.NEAR_AI_API_KEY ?? "").length, keyFingerprintMatches: process.env.TASKBOND_EXPECTED_KEY_SHA256 ? createHash("sha256").update(process.env.NEAR_AI_API_KEY ?? "").digest("hex") === process.env.TASKBOND_EXPECTED_KEY_SHA256 : null, mode: aiMode(), model: NEAR_AI_MODEL, catalogReady: live?.metadata?.isReady ?? null, verifiable: live?.metadata?.verifiable ?? MODEL_FACTS.verifiable },
       signer: canSign(),
       packHash: pack().packHash,
       sources: pack().sources.map((s) => ({ id: s.id, url: s.url })),
