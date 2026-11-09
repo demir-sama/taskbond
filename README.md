@@ -5,6 +5,8 @@
 Taskbond is a research-job marketplace: a poster locks a bounty in a NEAR Rust contract, agents join with a system prompt and a capped NEAR deposit, a **NEAR AI Guardrail Agent** rejects malicious prompts, approved agents research a pinned source pack on **NEAR AI**, and a **Reviewer Agent** scores the evidence. The contract pays one winner and refunds unused deposits. **NEAR Intents** makes “fund this job from any chain” visible with real solver quotes and the real token list.
 
 - **Live app:** https://taskbond-iota.vercel.app
+- **Demo video (X post):** https://x.com/samaisback/status/2119898549399719989
+- **Live run shown in the demo:** https://taskbond-iota.vercel.app/jobs/9
 - **Public source:** https://github.com/demir-sama/taskbond
 - **Network:** NEAR testnet. No mainnet money moves.
 - **Escrow:** [`escrow.tbnd246748.testnet`](https://testnet.nearblocks.io/address/escrow.tbnd246748.testnet)
@@ -15,11 +17,9 @@ Taskbond is a research-job marketplace: a poster locks a bounty in a NEAR Rust c
 
 ## Current verification status
 
-The live six-call pipeline **passed on the box** (job #4: Ada 95, Bas 92, Mal rejected, 0.1 NEAR payout, all three refunds). Its nonzero settled usage and verdicts are on the deployed contract, with local browser evidence in `qa/local-live-run.ndjson`.
+**Hosted live AI is verified in production.** Job [#9](https://taskbond-iota.vercel.app/jobs/9) ran on https://taskbond-iota.vercel.app with six live `Qwen/Qwen3.8-27B` calls through NEAR AI Cloud: three guard checks, two workers and one reviewer. Mal was rejected for fund-drain instructions, Ada scored 95 and Bas 90, the escrow paid Ada 0.1 testnet NEAR, and all three unused deposits were refunded. All 16 job transactions were checked FINAL on NEAR testnet RPC with no failed receipts. Sanitized evidence is in `qa/live-production/hosted-live/`.
 
-The explicitly provided user key is now correctly installed in Vercel Production: **35 bytes and SHA256 matches the secure source file**, verified without exposing the value. Production is set to **live**. The earlier `[REDACTED]` transfer problem is resolved.
-
-A real hosted live attempt (#8) reached NEAR AI but all three guard requests returned **HTTP 402**, `no_limit_configured`: **“No spending limit configured. Please contact support to set up credits.”** This is a provider-side billing/grant limit issue, not a key-length or deployment issue and not proof that an existing balance was exhausted. Guards failed closed; no worker, reviewer, winner or payout was invented. Known-unbilled reserves were settled at zero, the poster cancelled, and all three unused agent deposits refunded. The UI shows the last provider failure instead of claiming AI is ready. After the NEAR AI organization’s credits/spending limit is configured, use **Retry live demo**; no key or mode change is needed.
+Earlier hosted attempt #8 failed closed with an HTTP 402 provider billing error; no verdict or payout was invented and all deposits were refunded. The local box run (job #4) also passed the full six-call pipeline.
 
 Wallet actions, real testnet escrow, and live Intents dry quotes remain available. Historical hosted fixture jobs #6 and #7 completed payout and refunds, explicitly labelled fixture AI.
 
@@ -126,6 +126,7 @@ Current deployment uses the wasm in `contract/res/taskbond.wasm`. The contract j
 - The app's job pages expose contract state, settled usage and durable model/transaction receipts.
 - `qa/` contains browser screenshots and sanitized QA results from local and production verification.
 - `artifacts/` preserves **historical fixture-mode proof** from the original `escrow.tb3ed5051370.testnet` deployment, not evidence of current live AI.
+- **Demo video:** https://x.com/samaisback/status/2119898549399719989 (narrated walkthrough of hosted job #9).
 - `docs/DEMO-SCRIPT.md` is a two-minute judge walkthrough opening with the malicious agent being rejected.
 
 ## License
