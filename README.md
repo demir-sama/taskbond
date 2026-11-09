@@ -17,7 +17,9 @@ Taskbond is a research-job marketplace: a poster locks a bounty in a NEAR Rust c
 
 The live six-call pipeline **passed on the box** (job #4: Ada 95, Bas 92, Mal rejected, 0.1 NEAR payout, all three refunds). Its nonzero settled usage and verdicts are on the deployed contract, with local browser evidence in `qa/local-live-run.ndjson`.
 
-The same key supplied to Vercel returned **HTTP 401** from NEAR AI Cloud. That hosted attempt (#5) failed closed: all three guards rejected and no winner or payout was invented; its known-unbilled reservations were manually settled at zero, the poster cancelled and all unused deposits were refunded. **New hosted runs are explicitly in fixture AI mode until a valid host-side key is supplied.** Wallet/escrow/Intents features remain live. This is an open deployment credential blocker, not a claim that hosted live AI passed.
+Hosted credential diagnosis found that Vercel did **not** receive the working local key: its value was the literal `[REDACTED]` placeholder (10 bytes), while the local value was 35 bytes with a different SHA256. Production scope, exact variable name, base URL and Bearer header were correct. Re-setting through the sanctioned connector and a fresh deployment still produced that placeholder; it was not a trailing newline or old deployment. The temporary token-protected fingerprint endpoint was removed afterward. A valid key must be entered directly into the Taskbond Production environment through a supported secure setup flow.
+
+The hosted attempt (#5) returned **HTTP 401** and failed closed: all three guards rejected and no winner or payout was invented; its known-unbilled reservations were manually settled at zero, the poster cancelled and all unused deposits were refunded. **New hosted runs are explicitly in fixture AI mode until a valid host-side key is supplied.** Wallet/escrow/Intents features remain live. This is an open credential-transfer blocker, not evidence that the user's working key is expired or that hosted live AI passed.
 
 ## Judge path (do X → see Y)
 
