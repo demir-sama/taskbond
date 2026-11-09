@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { RunEvent } from "@/lib/types";
 import type { JobDetail } from "./job-board";
 import { useWallet } from "./wallet";
@@ -18,6 +18,13 @@ function yocto(n: string) {
 
 export function JobActions({ d, worstCase, onChange }: { d: JobDetail; worstCase: string | null; onChange: () => Promise<void> }) {
   const w = useWallet();
+  const [now, setNow] = useState(0);
+  useEffect(() => {
+    const tick = () => setNow(Date.now());
+    const initial = setTimeout(tick, 0);
+    const timer = setInterval(tick, 30000);
+    return () => { clearTimeout(initial); clearInterval(timer); };
+  }, []);
   const [busy, setBusy] = useState<string | null>(null);
   const [log, setLog] = useState<Log[]>([]);
   const [name, setName] = useState("");
@@ -133,7 +140,7 @@ export function JobActions({ d, worstCase, onChange }: { d: JobDetail; worstCase
               body={pendingReview.length ? `${pendingReview.length} submission(s) waiting. The Reviewer Agent scores them; the contract pays the winner.` : job.winner_agent_id ? "Winner recorded." : "Waiting for submissions."}
               action={(pendingReview.length > 0 || job.winner_agent_id) && <button className="btn btn-ghost btn-sm" disabled={!!busy} onClick={() => void server("Review & pay", "/api/review", { jobId: job.id })}>{busy === "Review & pay" ? <Spinner /> : job.winner_agent_id ? "Pay winner" : "Review & pay"}</button>}
             />
-            {!job.winner_agent_id && BigInt(job.deadline_ns) < BigInt(Date.now()) * 1_000_000n && (
+            {!job.winner_agent_id && BigInt(job.deadline_ns) < BigInt(now) * 1_000_000n && (
               <Step title="Deadline reached" body="No accepted winner. Anyone can return the escrowed reward to the poster." action={<button className="btn btn-ghost btn-sm" disabled={!!busy} onClick={() => void wallet("Refund expired job", () => w.call({ method: "refund_expired", args: { job_id: job.id }, gas: "200000000000000" }))}>Refund poster</button>} />
             )}
             {w.accountId === job.poster && agents.every((a) => a.review === "None") && (
