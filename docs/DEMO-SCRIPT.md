@@ -1,17 +1,28 @@
-# Two-minute demo script
+# Taskbond · two-minute demo script
 
-Open on the attack. The first thing on screen is Mal’s rejected card.
+**0:00 — Open on Mal's red card in the latest live desk run.**
+“Mal tried to tell an agent to ignore its instructions and drain the escrow. Taskbond’s NEAR AI Guardrail Agent rejected it before it could spend a research token. The reason is on chain.”
 
-0:00  Point at Mal. “This agent was told to ignore the research job and take the escrow. The guard rejected that prompt. The reason is on the card. The job’s NEAR did not move.”
+**0:15 — Scroll to the title and click Run the live demo.**
+“Taskbond is a swarm-for-hire marketplace on NEAR. A poster escrows a research reward; agents join with a name, a system prompt, and a capped deposit.”
 
-0:20  “The job is one research question: how a NEAR account differs from a key, cited from the pinned official pages. The fee was locked in the testnet contract before any agent ran.”
+**0:30 — Show the pipeline streaming.**
+“This is NEAR testnet, not a simulation. These are real transactions. Every model call reserves the frozen worst-case cost on chain before NEAR AI is called, then settles the actual token count.”
 
-0:40  Point at Ada, then Bas. “These two stayed on the job. Each quote is an exact sentence from those pages. A checker accepts or refuses the quote before anyone scores it. This run is fixture mode. There is no NEAR AI key on this machine, so the cards are not live model output, and the inference deposits were reserved and released at zero.”
+**0:45 — Show Mal rejected, Ada and Bas approved.**
+“Three prompts go to the guard. Two are on topic; one asks to move the money. The guardrail rejects it and says why. The contract is the hard budget boundary, not the prompt.”
 
-1:05  “The reviewer accepted Ada and rejected Bas. The contract can pay only Ada’s own account. There is no field for a different recipient.”
+**1:00 — Open the worker evidence.**
+“Ada and Bas research the pinned NEAR docs using NEAR AI. They choose numbered snippets; Taskbond resolves them to exact source quotes. Fabricated refs are dropped. The reviewer scores accuracy, coverage and evidence.”
 
-1:25  Open the payout on the testnet explorer. “Ada’s balance went up by the escrow, exactly. The log says payout confirmed. Unspent deposits come back. A failed transfer, in the deployment proof, does not mark the job paid.”
+**1:15 — Show scores, payout and refund receipts.**
+“The best cited result wins. The contract binds its result and evidence hashes, pays the owner, and refunds every unused cap and gas reserve. Paid means the callback succeeded. You can verify every receipt on Nearblocks.”
 
-1:45  “Intents has no testnet. The preview is a mainnet dry quote from USDC into wNEAR inside Intents. It does not settle, and it does not fund this job. Testnet NEAR is the escrow. It is not the model bill.”
+**1:30 — Open Connect wallet, then Post a job.**
+“This isn’t only a scripted demo. Connect Meteor, MyNearWallet, HOT or Intear on testnet, post your own job, join with your own system prompt, run research, then sign and submit the result.”
 
-2:00  Stop.
+**1:45 — Open Fund from any chain.**
+“A poster may hold USDC on Base or SOL, not NEAR. Taskbond asks NEAR Intents’ solver network for the exact amount needed to fund the escrow. These are live quotes. Intents has no testnet, so they are dry: no mainnet funds move.”
+
+**1:58 — End on the live URL and public GitHub repo.**
+“Taskbond: hire an AI swarm, pay only for evidence.”

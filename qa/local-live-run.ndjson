@@ -1,0 +1,38 @@
+{"type":"step","id":"job","status":"running","detail":"Escrowing 0.10 NEAR reward + storage bond"}
+{"type":"tx","label":"Poster escrows the reward","method":"create_job","signer":"poster.tbnd246748.testnet","hash":"imRonsrrgKf71KbbarwdBCGJZvVrNBQgYgNNY78151o","explorer":"https://testnet.nearblocks.io/txns/imRonsrrgKf71KbbarwdBCGJZvVrNBQgYgNNY78151o"}
+{"type":"job","jobId":4}
+{"type":"step","id":"job","status":"done","detail":"Job #4 holds 0.10 NEAR in escrow"}
+{"type":"step","id":"join","status":"running","detail":"Mal, Ada and Bas deposit and register"}
+{"type":"tx","label":"Mal joins with a capped deposit","method":"register_agent","signer":"mal.tbnd246748.testnet","hash":"EkUM8N8huEz9U4jHEw6vno7qZDrAR6pLg2qchsKfnRZb","explorer":"https://testnet.nearblocks.io/txns/EkUM8N8huEz9U4jHEw6vno7qZDrAR6pLg2qchsKfnRZb"}
+{"type":"tx","label":"Ada joins with a capped deposit","method":"register_agent","signer":"ada.tbnd246748.testnet","hash":"DvdsW5er8yQ9rTLVTt2qSLfpQUKRxy5AKnZBSq1hZq5E","explorer":"https://testnet.nearblocks.io/txns/DvdsW5er8yQ9rTLVTt2qSLfpQUKRxy5AKnZBSq1hZq5E"}
+{"type":"tx","label":"Bas joins with a capped deposit","method":"register_agent","signer":"bas.tbnd246748.testnet","hash":"GEtnHLbNyrAxkdDyKW6c92QeuiGuKpyr1pPtBz3kt63M","explorer":"https://testnet.nearblocks.io/txns/GEtnHLbNyrAxkdDyKW6c92QeuiGuKpyr1pPtBz3kt63M"}
+{"type":"step","id":"join","status":"done","detail":"3 agents joined · inference cap 0.0061 NEAR each (hard limit in contract)"}
+{"type":"step","id":"guard","status":"running","detail":"NEAR AI Guardrail Agent is reading each system prompt"}
+{"type":"tx","label":"Reserve guard budget","method":"reserve + reserve + reserve","signer":"ops.tbnd246748.testnet","hash":"CChHJiWxKEFbPd15zKp1pQbrmECuXBQuPrRS2ZN3vQz7","explorer":"https://testnet.nearblocks.io/txns/CChHJiWxKEFbPd15zKp1pQbrmECuXBQuPrRS2ZN3vQz7"}
+{"type":"ai","role":"guard","agent":"Bas","mode":"live","model":"Qwen/Qwen3.8-27B","inputTokens":294,"outputTokens":47,"ms":2346,"responseId":"2c0730de092d4a39aa1f75d6c92b81a7"}
+{"type":"ai","role":"guard","agent":"Ada","mode":"live","model":"Qwen/Qwen3.8-27B","inputTokens":306,"outputTokens":52,"ms":2526,"responseId":"8b5bcc66bd9446f1947faeb7449ee6b5"}
+{"type":"ai","role":"guard","agent":"Mal","mode":"live","model":"Qwen/Qwen3.8-27B","inputTokens":291,"outputTokens":53,"ms":2871,"responseId":"076a86343c4c464290fa9cd4f62bfe4e"}
+{"type":"tx","label":"Settle guard usage + record decisions","method":"settle + record_guard + settle + record_guard + settle + record_guard","signer":"ops.tbnd246748.testnet","hash":"EJ9n4adqSGYDRNDfxY1yYzQZn8qhVfu1s4CqvjM2qBQS","explorer":"https://testnet.nearblocks.io/txns/EJ9n4adqSGYDRNDfxY1yYzQZn8qhVfu1s4CqvjM2qBQS"}
+{"type":"step","id":"guard","status":"done","detail":"2 approved · 1 rejected before spending"}
+{"type":"step","id":"work","status":"running","detail":"Approved agents research the pinned NEAR docs on NEAR AI"}
+{"type":"tx","label":"Reserve worker budget","method":"reserve + reserve","signer":"ops.tbnd246748.testnet","hash":"9YWkErBWTYDhQaERZuCAoKePSd6C8Mxip6MGNfkwCzRp","explorer":"https://testnet.nearblocks.io/txns/9YWkErBWTYDhQaERZuCAoKePSd6C8Mxip6MGNfkwCzRp"}
+{"type":"ai","role":"worker","agent":"Bas","mode":"live","model":"Qwen/Qwen3.8-27B","inputTokens":1400,"outputTokens":201,"ms":16252,"responseId":"da22f14d8cdd4eedacd73a9f483f6692"}
+{"type":"ai","role":"worker","agent":"Ada","mode":"live","model":"Qwen/Qwen3.8-27B","inputTokens":1412,"outputTokens":207,"ms":16692,"responseId":"8ec14fa8db624903906e3038dd83313e"}
+{"type":"tx","label":"Settle worker usage","method":"settle + settle","signer":"ops.tbnd246748.testnet","hash":"HNsvJ4858mw787k5iREi2VRyXFLKvvQShFsZYsEYqZrd","explorer":"https://testnet.nearblocks.io/txns/HNsvJ4858mw787k5iREi2VRyXFLKvvQShFsZYsEYqZrd"}
+{"type":"tx","label":"Ada submits result + evidence","method":"submit_result","signer":"ada.tbnd246748.testnet","hash":"B6eMzSZDyymRjXWX7xiEdpy6oDnQK1gcj977ANCetH1e","explorer":"https://testnet.nearblocks.io/txns/B6eMzSZDyymRjXWX7xiEdpy6oDnQK1gcj977ANCetH1e"}
+{"type":"tx","label":"Bas submits result + evidence","method":"submit_result","signer":"bas.tbnd246748.testnet","hash":"5agFVmoKvApviLiR7y8LFRg9XqznqX1L4bk3ZPhQ6XjF","explorer":"https://testnet.nearblocks.io/txns/5agFVmoKvApviLiR7y8LFRg9XqznqX1L4bk3ZPhQ6XjF"}
+{"type":"step","id":"work","status":"done","detail":"2 submissions · 3 verified quotes · 3 verified quotes"}
+{"type":"step","id":"review","status":"running","detail":"NEAR AI Reviewer Agent is scoring the evidence"}
+{"type":"tx","label":"Reserve reviewer budget","method":"reserve","signer":"ops.tbnd246748.testnet","hash":"D233Vvy3jki3MeuMcJFXVNJKQt1hzB7bBmgvxSG1XTnQ","explorer":"https://testnet.nearblocks.io/txns/D233Vvy3jki3MeuMcJFXVNJKQt1hzB7bBmgvxSG1XTnQ"}
+{"type":"ai","role":"reviewer","mode":"live","model":"Qwen/Qwen3.8-27B","inputTokens":689,"outputTokens":124,"ms":6633,"responseId":"e0a42a056e3f429aac2ac09c0a17ca08"}
+{"type":"tx","label":"Record scores + accept winner","method":"settle + record_review + record_review","signer":"ops.tbnd246748.testnet","hash":"W1ip3Gjr95gixDbENUcAVZh6vW7nAcXN6XvVpcm59jS","explorer":"https://testnet.nearblocks.io/txns/W1ip3Gjr95gixDbENUcAVZh6vW7nAcXN6XvVpcm59jS"}
+{"type":"step","id":"review","status":"done","detail":"Ada wins · Ada 95 · Bas 92"}
+{"type":"step","id":"pay","status":"running","detail":"Contract transfers the reward to the winner"}
+{"type":"tx","label":"Pay the winner from escrow","method":"payout_winner","signer":"ops.tbnd246748.testnet","hash":"AhCqboKn1TDTprnJ3yeWcnjeVMu3VdjS9zAiiKodd6Aq","explorer":"https://testnet.nearblocks.io/txns/AhCqboKn1TDTprnJ3yeWcnjeVMu3VdjS9zAiiKodd6Aq"}
+{"type":"step","id":"pay","status":"done","detail":"Paid · Ada balance +0.1000 NEAR"}
+{"type":"step","id":"refund","status":"running","detail":"Every agent withdraws its unspent cap + gas reserve"}
+{"type":"tx","label":"Ada withdraws unspent deposit","method":"withdraw_agent","signer":"ada.tbnd246748.testnet","hash":"Db5NpTVdHEV5kWeNvFDC2VTBzLAHiEY8feR5ZshCzArz","explorer":"https://testnet.nearblocks.io/txns/Db5NpTVdHEV5kWeNvFDC2VTBzLAHiEY8feR5ZshCzArz"}
+{"type":"tx","label":"Bas withdraws unspent deposit","method":"withdraw_agent","signer":"bas.tbnd246748.testnet","hash":"EWd94DhkVyJRs2ow3qECLqiGf2aYFt5Z9x9gi4iuvdm9","explorer":"https://testnet.nearblocks.io/txns/EWd94DhkVyJRs2ow3qECLqiGf2aYFt5Z9x9gi4iuvdm9"}
+{"type":"tx","label":"Mal withdraws unspent deposit","method":"withdraw_agent","signer":"mal.tbnd246748.testnet","hash":"C78xxmg7tJqnFUp3JeGSnti5PccvHhn6sLKff14g5ZN9","explorer":"https://testnet.nearblocks.io/txns/C78xxmg7tJqnFUp3JeGSnti5PccvHhn6sLKff14g5ZN9"}
+{"type":"step","id":"refund","status":"done","detail":"3/3 refunds settled on chain"}
+{"type":"done","jobId":4,"ok":true}

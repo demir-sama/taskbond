@@ -1,20 +1,32 @@
-const QUOTE_URL = "https://1click.chaindefuser.com/v0/quote";
+/**
+ * NEAR Intents 1Click API (https://1click.chaindefuser.com). Mainnet only:
+ * there is no Intents testnet. Every quote here is `dry: true`, which prices
+ * the swap and returns no deposit address, so nothing can be settled.
+ */
+export const ONECLICK = "https://1click.chaindefuser.com/v0";
+export const WNEAR = "nep141:wrap.near";
 
-export const INTENTS_ASSETS = {
-  usdcArb: "nep141:arb-0xaf88d065e77c8cc2239327c5edb3a432268e5831.omft.near",
-  usdcArbDecimals: 6,
-  wrapNear: "nep141:wrap.near",
-  wrapNearDecimals: 24,
+export type IntentsToken = { assetId: string; decimals: number; blockchain: string; symbol: string; price: number | null; priceUpdatedAt?: string };
+
+export const CHAIN_NAMES: Record<string, string> = {
+  near: "NEAR", eth: "Ethereum", sol: "Solana", base: "Base", arb: "Arbitrum", btc: "Bitcoin", bsc: "BNB Chain", op: "Optimism", pol: "Polygon",
+  avax: "Avalanche", tron: "Tron", ton: "TON", sui: "Sui", aptos: "Aptos", doge: "Dogecoin", xrp: "XRP Ledger", zec: "Zcash", ltc: "Litecoin",
+  bch: "Bitcoin Cash", gnosis: "Gnosis", stellar: "Stellar", cardano: "Cardano", starknet: "Starknet", bera: "Berachain", monad: "Monad", scroll: "Scroll",
+  plasma: "Plasma", hypercore: "Hyperliquid", xlayer: "X Layer", dash: "Dash", movement: "Movement", aleo: "Aleo", miden: "Miden", hood: "Robinhood Chain",
 };
+
+export function chainName(id: string) {
+  return CHAIN_NAMES[id] ?? id.toUpperCase();
+}
 
 /** Schema example is `2019-08-24T14:15:22Z`: seconds, no milliseconds. */
 export function quoteDeadline(now = new Date()): string {
-  return new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString().replace(/\.\d{3}Z$/, "Z");
+  return new Date(now.getTime() + 60 * 60 * 1000).toISOString().replace(/\.\d{3}Z$/, "Z");
 }
 
 export type DryQuoteRequest = {
   dry: true;
-  swapType: "EXACT_INPUT";
+  swapType: "EXACT_OUTPUT";
   slippageTolerance: number;
   originAsset: string;
   destinationAsset: string;
@@ -23,31 +35,33 @@ export type DryQuoteRequest = {
   recipient: string;
   recipientType: "INTENTS";
   refundTo: string;
-  refundType: "ORIGIN_CHAIN";
+  refundType: "INTENTS";
   deadline: string;
   quoteWaitingTimeMs: 0;
 };
 
 /**
- * A DESTINATION_CHAIN quote of wNEAR to a `.testnet` account makes 1Click
- * answer 400 `Internal server error`. The solver cannot withdraw mainnet
- * wNEAR onto testnet. INTENTS prices the same swap and, with dry:true,
- * returns no deposit address.
+ * "Fund this job from any chain": EXACT_OUTPUT of wNEAR equal to the job's
+ * escrow, paid from the chosen origin asset. Recipient/refund are Intents
+ * accounts on mainnet NEAR (refundType INTENTS works for every origin chain
+ * without needing a chain-specific refund address).
  */
-export function buildDryQuoteRequest(recipient: string, now = new Date()): DryQuoteRequest {
-  if (!recipient || recipient.includes(" ")) throw new Error("recipient required");
+export function buildDryQuoteRequest(originAsset: string, yoctoOut: string, recipient: string, now = new Date()): DryQuoteRequest {
+  if (!/^[a-z0-9._-]{2,64}$/.test(recipient)) throw new Error("recipient must be a NEAR mainnet account id");
+  if (!/^[a-zA-Z0-9:._\-]{4,200}$/.test(originAsset)) throw new Error("bad origin asset");
+  if (!/^\d{1,40}$/.test(yoctoOut) || BigInt(yoctoOut) <= 0n) throw new Error("bad amount");
   return {
     dry: true,
-    swapType: "EXACT_INPUT",
+    swapType: "EXACT_OUTPUT",
     slippageTolerance: 100,
-    originAsset: INTENTS_ASSETS.usdcArb,
-    destinationAsset: INTENTS_ASSETS.wrapNear,
-    amount: "5000000",
+    originAsset,
+    destinationAsset: WNEAR,
+    amount: yoctoOut,
     depositType: "ORIGIN_CHAIN",
     recipient,
     recipientType: "INTENTS",
-    refundTo: "0x2527D02599Ba641c19FEa793cD0F167589a0f10D",
-    refundType: "ORIGIN_CHAIN",
+    refundTo: recipient,
+    refundType: "INTENTS",
     deadline: quoteDeadline(now),
     quoteWaitingTimeMs: 0,
   };
@@ -65,64 +79,77 @@ export function stripSettlementFields(quote: Record<string, unknown>): Record<st
 
 export type QuotePreview = {
   ok: true;
+  dry: true;
   settlement: "not-performed";
-  recipientType: "INTENTS";
+  originAsset: string;
   amountIn: string;
   amountInFormatted: string | null;
-  amountOut: string | null;
+  amountInUsd: string | null;
+  minAmountIn: string | null;
+  amountOut: string;
   amountOutFormatted: string | null;
   amountOutUsd: string | null;
-  minAmountOut: string | null;
   timeEstimate: number | null;
+  correlationId: string | null;
   depositAddressDiscarded: boolean;
-  note: string;
+  requestedAt: string;
 };
 
-export type QuoteFailure = { ok: false; settlement: "not-performed"; error: string };
+export type QuoteFailure = { ok: false; dry: true; settlement: "not-performed"; error: string };
 
-export async function dryQuote(recipient: string): Promise<QuotePreview | QuoteFailure> {
-  const requestBody = buildDryQuoteRequest(recipient);
-  if (requestBody.dry !== true) {
-    return { ok: false, settlement: "not-performed", error: "refusing a quote that is not dry" };
+export async function dryQuote(originAsset: string, yoctoOut: string, recipient: string, fetchImpl: typeof fetch = fetch): Promise<QuotePreview | QuoteFailure> {
+  let request: DryQuoteRequest;
+  try {
+    request = buildDryQuoteRequest(originAsset, yoctoOut, recipient);
+  } catch (e) {
+    return { ok: false, dry: true, settlement: "not-performed", error: e instanceof Error ? e.message : "bad request" };
   }
+  if (request.dry !== true) return { ok: false, dry: true, settlement: "not-performed", error: "refusing a quote that is not dry" };
   let response: Response;
   try {
-    response = await fetch(QUOTE_URL, {
+    response = await fetchImpl(`${ONECLICK}/quote`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "User-Agent": "Taskbond/1.0 (dry quote preview)",
-      },
-      body: JSON.stringify(requestBody),
+      headers: { "Content-Type": "application/json", Accept: "application/json", "User-Agent": "Taskbond/2.0 (dry quote)" },
+      body: JSON.stringify(request),
       signal: AbortSignal.timeout(20_000),
     });
   } catch (error) {
-    return { ok: false, settlement: "not-performed", error: error instanceof Error ? error.message : "quote failed" };
+    return { ok: false, dry: true, settlement: "not-performed", error: error instanceof Error ? error.message : "quote failed" };
   }
-  if (!response.ok) {
-    return {
-      ok: false,
-      settlement: "not-performed",
-      error: `1Click ${response.status}: ${(await response.text()).slice(0, 280)}`,
-    };
+  const text = await response.text();
+  let body: { quote?: Record<string, unknown>; message?: string; correlationId?: string } = {};
+  try {
+    body = JSON.parse(text);
+  } catch {
+    /* keep text */
   }
-  const body = (await response.json()) as { quote?: Record<string, unknown> };
+  if (!response.ok) return { ok: false, dry: true, settlement: "not-performed", error: body.message ? String(body.message).slice(0, 240) : `1Click ${response.status}` };
   const raw = body.quote ?? {};
-  const discarded = raw.depositAddress != null || raw.deadline != null || raw.timeWhenInactive != null;
-  const quote = stripSettlementFields(raw);
+  const discarded = raw.depositAddress != null || raw.timeWhenInactive != null;
+  const q = stripSettlementFields(raw);
+  const s = (v: unknown) => (v == null ? null : String(v));
   return {
     ok: true,
+    dry: true,
     settlement: "not-performed",
-    recipientType: "INTENTS",
-    amountIn: String(quote.amountIn ?? requestBody.amount),
-    amountInFormatted: quote.amountInFormatted == null ? null : String(quote.amountInFormatted),
-    amountOut: quote.amountOut == null ? null : String(quote.amountOut),
-    amountOutFormatted: quote.amountOutFormatted == null ? null : String(quote.amountOutFormatted),
-    amountOutUsd: quote.amountOutUsd == null ? null : String(quote.amountOutUsd),
-    minAmountOut: quote.minAmountOut == null ? null : String(quote.minAmountOut),
-    timeEstimate: typeof quote.timeEstimate === "number" ? quote.timeEstimate : null,
+    originAsset,
+    amountIn: String(q.amountIn ?? ""),
+    amountInFormatted: s(q.amountInFormatted),
+    amountInUsd: s(q.amountInUsd),
+    minAmountIn: s(q.minAmountIn),
+    amountOut: String(q.amountOut ?? yoctoOut),
+    amountOutFormatted: s(q.amountOutFormatted),
+    amountOutUsd: s(q.amountOutUsd),
+    timeEstimate: typeof q.timeEstimate === "number" ? q.timeEstimate : null,
+    correlationId: s(body.correlationId),
     depositAddressDiscarded: discarded,
-    note: "Dry quote only. recipientType is INTENTS because a testnet account cannot receive a mainnet wNEAR withdrawal (that request 400s). No deposit address is kept. Nothing is settled and the testnet job is not funded.",
+    requestedAt: new Date().toISOString(),
   };
+}
+
+export async function listTokens(fetchImpl: typeof fetch = fetch): Promise<IntentsToken[]> {
+  const res = await fetchImpl(`${ONECLICK}/tokens`, { signal: AbortSignal.timeout(15_000), headers: { Accept: "application/json" } });
+  if (!res.ok) throw new Error(`1Click tokens ${res.status}`);
+  const all = (await res.json()) as IntentsToken[];
+  return all.filter((t) => t.assetId !== WNEAR && typeof t.symbol === "string");
 }

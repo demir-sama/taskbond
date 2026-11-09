@@ -24,7 +24,7 @@ pub const MAX_STEP: usize = 200;
 pub const MAX_STEPS: usize = 8;
 pub const MAX_EVIDENCE: usize = 1_800;
 pub const MAX_MODEL_ID: usize = 128;
-pub const MAX_JOBS: u64 = 40;
+pub const MAX_JOBS: u64 = 1_000;
 pub const MAX_AGENTS_PER_JOB: u64 = 8;
 pub const CALLBACK_GAS: Gas = Gas::from_tgas(30);
 

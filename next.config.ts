@@ -5,9 +5,10 @@ const nextConfig: NextConfig = {
   // treated as cross-site and Next answers /_next requests with a bare
   // "Unauthorized", which breaks hydration.
   allowedDevOrigins: ["127.0.0.1"],
+  outputFileTracingIncludes: {
+    "/api/**": ["./sources/**/*"],
+  },
   distDir: process.env.NEXT_DIST_DIR || ".next",
-  cacheComponents: true,
-  partialPrefetching: true,
   turbopack: {
     rules: {
       "*.css": {

@@ -1,0 +1,9 @@
+{
+  "framework": "nextjs",
+  "functions": {
+    "app/api/run/route.ts": { "maxDuration": 300 },
+    "app/api/guard/route.ts": { "maxDuration": 120 },
+    "app/api/work/route.ts": { "maxDuration": 120 },
+    "app/api/review/route.ts": { "maxDuration": 120 }
+  }
+}
